@@ -1,5 +1,36 @@
 name: build Aseprite
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+    inputs:
+      Reason:
+        description: 'Reasons for temporary build'     
+        required: true
+        default: 'No reason.Just do it.'
+  push:
+        branches:
+          - master
+          - feature/*
+        paths-ignore:
+          - '**/*.md'
+          - .gitignore
+          - .editorconfig
+          - appveyor.yml
+          - 'azure-pipelines*.yml'
+          - 'ci/azure-pipelines/template*.yml'
+
+  pull_request:
+          branches:
+            - master
+            - feature/*
+            - release/*
+          paths-ignore:
+            - '**/*.md'
+            - .gitignore
+            - .editorconfig
+            - appveyor.yml
+            - 'azure-pipelines*.yml'
+            - 'ci/azure-pipelines/template*.yml'
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
