@@ -1,4 +1,4 @@
-name: build
+name: build Aseprite
 on: [push, pull_request]
 jobs:
   build:
@@ -61,3 +61,8 @@ jobs:
         git clone --recursive https://github.com/aseprite/tests.git
         cd tests
         $XVFB bash run-tests.sh
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Aseprite-${{ runner.os }}-${{ matrix.enable_ui }}
+        path: .
